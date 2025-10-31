@@ -1,0 +1,101 @@
+{% extends 'logged_base.html' %}
+
+{% load static %}
+
+{% block head_extra %}
+  <style>
+    .avatar {
+      width: 120px; height: 120px; object-fit: cover; border-radius: 50%; border: 3px solid #fff;
+    }
+  </style>
+  {% endblock %}
+
+{% block content %}
+
+  <div class="container py-4">
+    <h2 class="mb-4">Editar perfil</h2>
+
+    <div class="preview-header mb-3">
+      {# Mostrar imagen actual del header si existe #}
+      {% if profile.header %}
+        <div id="headerImagePreview" style="max-height:160px; overflow:hidden; border-radius:8px;">
+          <img src="{{ profile.header.url }}" alt="Header actual" style="width:100%; height:auto; display:block; object-fit:cover;" />
+        </div>
+      {% else %}
+        <h3 id="headerPreview">{{ form.instance.header|default:"" }}</h3>
+      {% endif %}
+    </div>
+
+    <form method="post" enctype="multipart/form-data" class="section-card p-3">
+      {% csrf_token %}
+      <div class="form-group">
+        <label>Foto de perfil</label><br>
+        {% if profile.profile_picture %}
+          <img src="{{ profile.profile_picture.url }}" class="avatar mb-2" alt="Avatar actual"><br>
+        {% endif %}
+        {{ form.profile_picture }}
+      </div>
+
+      <div class="form-group">
+        <label>Header</label>
+        {{ form.header }}
+        <small class="form-text text-muted">Si subes una nueva imagen se mostrará aquí como vista previa.</small>
+      </div>
+
+      <div class="form-group">
+        <label>Descripción</label>
+        {{ form.bio }}
+      </div>
+
+      <div class="form-group">
+        <label>Instrumentos</label>
+        <div class="instruments-list">
+          {{ form.instruments }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Playlist pública de Spotify (URL)</label>
+        {{ form.spotify_playlist_url }}
+        <small class="form-text text-muted">
+          Ejemplo: https://open.spotify.com/playlist/xxxxxxxxxxxx
+        </small>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Guardar</button>
+      <a href="{% url 'users:profile' request.user.username %}" class="btn btn-light">Cancelar</a>
+    </form>
+  </div>
+
+  <script>
+    // Vista previa en vivo del header
+    const headerInput = document.getElementById("id_header");
+    const headerImagePreview = document.getElementById("headerImagePreview");
+    const headerPreview = document.getElementById("headerPreview");
+
+    if (headerInput) {
+      headerInput.addEventListener('change', (ev) => {
+        const file = ev.target.files && ev.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          // Crear/actualizar contenedor de preview
+          let container = document.getElementById('headerImagePreview');
+          if (!container) {
+            container = document.createElement('div');
+            container.id = 'headerImagePreview';
+            container.style.maxHeight = '160px';
+            container.style.overflow = 'hidden';
+            container.style.borderRadius = '8px';
+            if (headerPreview && headerPreview.parentNode) {
+              headerPreview.parentNode.replaceChild(container, headerPreview);
+            }
+          }
+          container.innerHTML = '<img src="'+e.target.result+'" style="width:100%; height:auto; display:block; object-fit:cover;" />';
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+  </script>
+
+  {% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'logged_base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h3>¡Sala Creada Exitosamente!</h3>
+                </div>
+                <div class="card-body">
+                    <h4>{{ room.name }}</h4>
+                    <p class="text-muted">{{ room.description }}</p>
+                    
+                    {% if room.privacy == 'privada' %}
+                        <div class="alert alert-info mt-4">
+                            <h5><i class="fas fa-lock"></i> Sala Privada</h5>
+                            <p>Comparte este código con los músicos que quieres invitar:</p>
+                            <div class="text-center my-3">
+                                <h2 class="font-weight-bold" style="letter-spacing: 3px; font-family: monospace;">
+                                    {{ room.access_code }}
+                                </h2>
+                            </div>
+                            <small class="text-muted">
+                                Este código es único y solo funcionará para esta sala.
+                                Los invitados pueden ingresar en: <strong>/rooms/acceder/</strong>
+                            </small>
+                        </div>
+                    {% endif %}
+                    
+                    <div class="mt-4">
+                        <a href="{{ room.url_jitsi }}" class="btn btn-primary btn-lg btn-block" target="_blank">
+                            <i class="fas fa-video"></i> Entrar a la Sala Ahora
+                        </a>
+                        <a href="{% url 'pages:index' %}" class="btn btn-secondary btn-block mt-2">
+                            Volver al Inicio
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "logged_base.html" %}
+{% load static %}
+
+{% block title %}Crear sala - Feelin' Star{% endblock %}
+
+
+{% block content %}
+    <!-- Header -->
+    <header class="ex-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-10 offset-xl-1">
+                    <h1>Crear sala</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- end of header -->
+
+<div class="container mt-4">
+    <form method="post" class="form-container">
+        {% csrf_token %}
+
+        <!-- Nombre de la sala -->
+        <div>
+            <label for="id_room_name">Nombre de la sala:</label>
+            {{ form.room_name }}
+        </div>
+
+        <!-- Descripción -->
+        <div>
+            <label for="id_room_description">Descripción:</label>
+            {{ form.room_description }}
+        </div>
+
+        <!-- Instrumentos -->
+        <div class="instruments">
+            <label for="id_required_instruments">Instrumentos:</label>
+            {{ form.required_instruments }}
+        </div>
+
+        <!-- Pública/Privada -->
+        <div>
+            <label for="id_privacy">Pública/Privada:</label>
+            {{ form.privacy }}
+        </div>
+
+        <!-- Botón -->
+        <div class="full">
+            <button type="submit" class="btn-submit">Crear sala</button>
+        </div>
+
+    </form>
+</div>
+
+<br>
+
+{% endblock %}

@@ -1,0 +1,48 @@
+{% load static %}
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg fixed-top navbar-dark">
+    <div class="container">
+        
+        <!-- Image Logo -->
+        <a class="navbar-brand logo-image" href="{% url 'pages:feed' %}">
+            <img src="{% static 'images/FS_3.png' %}" alt="Feelin' Star Logo">
+        </a>  
+
+        <div class="navbar-collapse offcanvas-collapse" id="navbar">
+            <ul class="navbar-nav ml-auto">
+                <!-- Inicio -->
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'pages:feed' %}">Inicio</a>
+                </li>
+
+                <!-- Crear nueva sala -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'rooms:create_room' %}">
+                        <i class="fas fa-plus"></i>
+                    </a>
+                </li>
+
+                <!-- Perfil -->
+                <li class="nav-item">
+                    <a class="nav-link " href="{% url 'users:profile' request.user.username %}">Perfil</a>
+                </li>
+
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'users:login' %}">
+                            <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'users:signup' %}">
+                            <i class="fas fa-user-plus"></i> Registrarse
+                        </a>
+                    </li>
+                {% endif %}
+                
+            </ul>
+        </div>
+    </div>
+</nav>

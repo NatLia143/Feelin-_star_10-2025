@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Registro - Feelin' Star{% endblock %}
+
+{% block content %}
+
+<!-- Header -->
+<header class="ex-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-10 offset-xl-1">
+                <h1>Registrarse</h1>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="login-wrapper">
+    <div class="login-form-container">
+        <p class="login-title">Registrarse</p>
+
+        <form class="login-form" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <!-- Username -->
+            <div class="login-input-group">
+                {{ form.username.label_tag }}
+                {{ form.username }}
+            </div>
+
+            <!-- Email -->
+            <div class="login-input-group">
+                {{ form.email.label_tag }}
+                {{ form.email }}
+            </div>
+
+            <!-- Passwords -->
+            <div class="login-input-group">
+                {{ form.password1.label_tag }}
+                {{ form.password1 }}
+                {% for error in form.password1.errors %}
+                    <p class="text-danger">{{ error }}</p>
+                {% endfor %}
+            </div>
+
+            <div class="login-input-group">
+                {{ form.password2.label_tag }}
+                {{ form.password2 }}
+                {% for error in form.password2.errors %}
+                    <p class="text-danger">{{ error }}</p>
+                {% endfor %}
+            </div>
+
+            <!-- Bio -->
+            <div class="login-input-group">
+                {{ form.bio.label_tag }}
+                {{ form.bio }}
+            </div>
+
+            <!-- Instruments -->
+            <label>Instrumentos que tocas</label>
+            {% for cb in form.instruments %}
+            <div class="checkbox-wrapper-46">
+                {{ cb.tag }}
+                <label for="{{ cb.id_for_label }}" class="cbx">
+                <span>
+                    <svg viewBox="0 0 12 10" height="10px" width="12px">
+                    <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                    </svg>
+                </span>
+                <span>{{ cb.choice_label }}</span>
+                </label>
+            </div>
+            {% endfor %}
+
+            {# errores del campo #}
+            {% if form.instruments.errors %}
+                <div class="text-danger">
+                {% for err in form.instruments.errors %}<div>{{ err }}</div>{% endfor %}
+                </div>
+            {% endif %}
+
+            <br>
+
+            <!-- Profile picture -->
+            <div class="login-input-group">
+                {{ form.profile_picture.label_tag }}
+                {{ form.profile_picture }}
+            </div>
+
+            <br>
+            <button type="submit" class="login-sign">Registrarse</button>
+        </form>
+
+            <br>
+    
+        <p class="login-signup">¿Ya tienes una cuenta?
+            <a rel="noopener noreferrer" href="{% url 'users:login' %}">Iniciar sesión</a>
+        </p>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,34 @@
+{% load static %}
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg fixed-top navbar-dark">
+    <div class="container">
+        
+        <!-- Image Logo -->
+        <a class="navbar-brand logo-image" href="{% url 'pages:index' %}">
+            <img src="{% static 'images/FS_3.png' %}" alt="Feelin' Star Logo">
+        </a>  
+
+        <div class="navbar-collapse offcanvas-collapse" id="navbar">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link page-scroll" href="{% url 'pages:index' %}">Inicio</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown">Detalles</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown01">
+                        <a class="dropdown-item page-scroll" href="{% url 'pages:terms' %}">Términos y condiciones</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item page-scroll" href="{% url 'pages:privacy' %}">Política de privacidad</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link page-scroll" href="{% url 'pages:about' %}">Nosotros</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link page-scroll" href="{% url 'users:login' %}">Iniciar sesión</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,44 @@
+{% extends 'logged_base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Acceder a Sala Privada</h3>
+                </div>
+                <div class="card-body">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="access_code">Código de Acceso</label>
+                            <input type="text" 
+                                   class="form-control text-uppercase" 
+                                   id="access_code" 
+                                   name="access_code" 
+                                   placeholder="Ej: ABC12345"
+                                   maxlength="8"
+                                   required>
+                            <small class="form-text text-muted">
+                                Ingresa el código de 8 caracteres que te proporcionó el creador de la sala
+                            </small>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block mt-3">
+                            Unirse a la Sala
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

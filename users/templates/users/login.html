@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Iniciar sesion - Feelin' Star{% endblock %}
+
+{% block content %}
+    
+    <!-- Header -->
+    <header class="ex-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-10 offset-xl-1">
+                    <h1>Iniciar sesión</h1>
+                </div> <!-- end of col -->
+            </div> <!-- end of row -->
+        </div> <!-- end of container -->
+    </header> <!-- end of ex-header -->
+    <!-- end of header -->
+    
+
+
+<div class="login-wrapper">
+    <div class="login-form-container">
+        <p class="login-title">Iniciar sesión</p>
+
+        <!-- Formulario conectado a Django -->
+        <form class="login-form" method="POST" action="{% url 'users:login' %}">
+            {% csrf_token %}
+
+            <div class="login-input-group">
+                <label for="username">Nombre de usuario</label>
+                <input type="text" name="username" id="username" placeholder="" required>
+            </div>
+
+            <div class="login-input-group">
+                <label for="password">Contraseña</label>
+                <input type="password" name="password" id="password" placeholder="" required>
+                <div class="login-forgot">
+                    <a rel="noopener noreferrer" href="#">¿Olvidaste la contraseña?</a>
+                </div>
+            </div>
+
+            <button type="submit" class="login-sign">Entrar</button>
+        </form>
+
+        <div class="login-social-message">
+            <div class="login-line"></div>
+            <p class="login-message">Inicia sesión con :</p>
+            <div class="login-line"></div>
+        </div>
+
+        <div class="login-social-icons">
+            <button aria-label="Log in with Google" class="login-icon">
+                <!-- SVG Google -->
+            </button>
+            <button aria-label="Log in with Twitter" class="login-icon">
+                <!-- SVG Twitter -->
+            </button>
+            <button aria-label="Log in with GitHub" class="login-icon">
+                <!-- SVG GitHub -->
+            </button>
+        </div>
+
+        <p class="login-signup">¿No tienes una cuenta?
+            <a rel="noopener noreferrer" href="{% url 'users:signup' %}">Registrarse</a>
+        </p>
+    </div>
+</div>
+
+{% endblock %}
