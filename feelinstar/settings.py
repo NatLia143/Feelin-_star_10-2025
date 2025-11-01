@@ -139,3 +139,22 @@ LOGOUT_REDIRECT_URL = 'pages:index'  # Después de cerrar sesión
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+
+
+from urllib.parse import urlparse
+
+render_url = os.environ.get("RENDER_EXTERNAL_URL", "")
+render_host = urlparse(render_url).hostname  # ej: "feelin-star.onrender.com"
+
+ALLOWED_HOSTS = [
+    *( [render_host] if render_host else [] ),
+    ".onrender.com",   # acepta cualquier subdominio de Render
+    "localhost",
+    "127.0.0.1",
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    *( [f"https://{render_host}"] if render_host else [] ),
+    "https://*.onrender.com",
+]
