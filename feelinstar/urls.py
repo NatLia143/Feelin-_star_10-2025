@@ -25,3 +25,6 @@ urlpatterns = [
     path("users/", include(("users.urls", "users"), namespace="users")),
     path('', include('pages.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+
